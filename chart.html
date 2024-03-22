@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<style>
+    .class {
+    width: 100%;
+    }
+
+    #piechart {
+   height: 600px;
+    }
+
+     #div_chart {
+    height: 400px;
+    }
+
+
+</style>
+
+
+</head>
+<body>
+
+ <!-- First Chart in HTML, calls drawChart -->
+  <form id="form1" onchange="drawChart()" >
+
+     <select id="thedropdown">
+     <option value="total">Total</option>
+     <option value="male">Male</option>
+     <option value="female">Female</option>
+     </select>
+
+  </form>
+
+    <div id="piechart" class="chart"></div>
+
+
+
+ <!-- 2nd Chart in HTML, calls drawChart2 -->
+ <!-- needs unique ids for form and dropdown -->
+
+<form id="form2" onchange="drawChart2()" >
+
+     <select id="thedropdown2">
+     <option value="male">Male</option>
+     <option value="female">Female</option>
+     </select>
+
+  </form>
+
+    <div id="div_chart" class="chart"></div>
+
+    <script type="text/javascript">
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          google.charts.setOnLoadCallback(drawChart2);
+
+
+    //first chart
+        function drawChart() {
+
+         mygender = document.getElementById("thedropdown").value;
+
+
+         info = [{gender: "male", facebook: 59, instagram: 39, linkedin: 31, twitter: 26, pinterest: 19, snapchat: 21, youtube: 82, whatsapp:27, reddit: 27, tiktok: 25, bereal: 2},
+         {gender: "female", facebook: 76, instagram: 54, linkedin: 29, twitter: 19, pinterest: 50, snapchat: 32, youtube: 83, whatsapp: 31, reddit: 17, tiktok: 40, bereal: 5}
+         ];
+
+
+        for(i=0; i<info.length; i++) {
+
+        //gets the total, adds both lines together in the dataset
+        if(mygender == "total")
+        {
+         facebook = info[0].facebook + info[1].facebook;
+         instagram = info[0].instagram + info[1].instagram;
+         twitter = info[0].twitter + info[1].twitter;
+         pinterest = info[0].pinterest + info[1].pinterest;
+         snapchat = info[0].snapchat + info[1].snapchat;
+         youtube = info[0].youtube + info[1].youtube;
+         whatsapp = info[0].whatsapp + info[1].whatsapp;
+        reddit = info[0].reddit + info[1].reddit;
+        tiktok = info[0].tiktok + info[1].tiktok;
+        bereal = info[0].bereal + info[1].bereal;
+
+        }
+
+
+        else if(mygender == info[i].gender) {
+           facebook = info[i].facebook; 
+         instagram = info[i].instagram; 
+         twitter = info[i].twitter; 
+         pinterest = info[i].pinterest; 
+         snapchat = info[i].snapchat;
+         youtube = info[i].youtube; 
+         whatsapp = info[i].whatsapp; 
+        reddit = info[i].reddit; 
+        tiktok = info[i].tiktok; 
+        bereal = info[i].bereal; 
+
+        }// end if
+        } // end for
+
+        var data = google.visualization.arrayToDataTable([
+              ['social', 'media'],
+              ['facebook',     facebook],
+              ['instagram',      instagram],
+              ['linkedin',  linkedin],
+              ['twitter', twitter],
+              ['pinterest',    pinterest],
+              ['snapchat', snapchat],
+              ['youtube', youtube],
+              ['whatsapp', whatsapp],
+              ['reddit', reddit],
+              ['tiktok', tiktok],
+              ['bereal', bereal]
+            ]);
+            var options = {
+              title: 'Social Media Usage'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+          }
+
+
+
+    //second chart - function needs a unique name
+    function drawChart2() {
+
+          mycity = document.getElementById("thedropdown2").value;
+
+
+         info = [{city: "Male", gender: "usage", facebook: 59, instagram: 39, linkedin: 31, twitter: 26, pinterest: 19, snapchat: 21, youtube: 82, whatsapp:27, reddit: 27, tiktok: 25, bereal: 2},
+  
+         {city: "female", gender: facebook: 76, instagram: 54, linkedin: 29, twitter: 19, pinterest: 50, snapchat: 32, youtube: 83, whatsapp: 31, reddit: 17, tiktok: 40, bereal: 5},
+         
+         ];
+
+         for(i=0; i<info.length; i++) {
+        if(mycity == info[i].city && info[i].gender=="usage") {
+           facebookmale = info[i].facebook;
+           instagrammale = info[i].instagram;
+           linkedinmale = info[i].linkedin;
+           twittermale = info[i].twitter;
+           pinterestmale = info[i].pinterest;
+           snapchatmale = info[i].snapchat;
+           youtubemale = info[i].youtube;
+           whatsappmale = info[i].whatsapp;
+           redditmale = info[i].whatsapp;
+           tiktokmale = info[i].tiktok;
+           berealmale = info[i].bereal;
+
+
+        }// end if
+
+        
+        } // end for
+
+            var data = google.visualization.arrayToDataTable([
+              ['Element', 'usage'],
+              ['facebook', facebookmale],
+              ['instagram', instagrammale],
+              ['linkedin', linkedinmale],
+              ['twitter', twittermale],
+              ['pinterest', pinterestmale]
+              ['snapchat', snapchatmale]
+              ['youtube', youtubemale]
+              ['whatsapp', whatsappmale]
+              ['reddit', redditmale]
+              ['tiktok', tiktokmale]
+              ['bereal', berealmale]
+            ]);
+
+            var options = {
+
+                title: 'Social Media Usage',
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('div_chart'));
+            chart.draw(data, options);
+          }
+
+        // this function makes the chart responsive; include the name of the proper drawChart function; This is an example with more than one chart.
+        window.onresize = function() {
+        drawChart();
+        drawChart2();
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
